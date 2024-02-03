@@ -18,10 +18,10 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
             alt={waifu.name}
             width={300}
             height={300}
-            className="w-fit"
+            className="w-full"
           />
         </div>
-        <div className="w-full flex flex-col ">
+        <div className="w-full flex flex-1 flex-col ">
           <div className="flex justify-between">
             <h4 className="text-xl pt-4">{waifu.name}</h4>
             <h4 className="text-xl pt-4">
@@ -34,7 +34,8 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
           </div>
-          <div className="mt-6">
+          <hr className="opacity-20 mt-4" />
+          <div className="mt-6 mb-2">
             <h4 className="text-xl">Description</h4>
             <p className="text-gray-400 w-full">{waifu.desc}</p>
           </div>
