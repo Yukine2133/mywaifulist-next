@@ -1,4 +1,5 @@
 import { addWaifu } from "@/actions/waifu.actions";
+import { SubmitButton } from "@/components/SubmitButton";
 
 const AddWaifu = async () => {
   return (
@@ -9,6 +10,12 @@ const AddWaifu = async () => {
           className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md"
           type="text"
           name="name"
+        />
+        <label>Appears In</label>
+        <input
+          className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md"
+          type="text"
+          name="appearsIn"
         />
         <label>Description</label>
 
@@ -24,12 +31,7 @@ const AddWaifu = async () => {
           name="image"
         />
         <hr className="opacity-20" />
-        <button
-          type="submit"
-          className="mt-4 bg-[#4b5562] w-24 mx-auto text-white hover:bg-gray-700 px-3 py-2 rounded-md transition-colors duration-300"
-        >
-          Submit
-        </button>
+        <SubmitButton />
       </form>
     </div>
   );

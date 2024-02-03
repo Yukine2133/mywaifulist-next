@@ -14,6 +14,9 @@ const Navbar = () => {
         <div className="lg:flex hidden gap-6">
           <h2 className="font-medium ">Random</h2>
           <h2 className="font-medium ">Browse</h2>
+          <Link href="add-waifu" className="font-medium">
+            Add Waifu
+          </Link>
         </div>
       </div>
       <div className="items-center flex justify-start px-2 rounded-lg bg-[#27272a]">

@@ -1,36 +1,22 @@
-import { connectDb } from "@/lib/connectDb";
-import { Waifu } from "@/models/waifu.model";
-import Image from "next/image";
+import { fetchWaifus } from "@/actions/waifu.actions";
+import WaifuCard from "@/components/WaifuCard";
 
 export interface WaifuProps {
   image: string;
   name: string;
   userId: string;
   desc: string;
+  _id: string;
+  appearsIn: string;
 }
 
 export default async function Home() {
-  const fetchWaifus = async () => {
-    try {
-      await connectDb();
-      const waifus: WaifuProps[] = await Waifu.find();
-      console.log(waifus);
-      return waifus;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const waifus = await fetchWaifus();
 
   return (
-    <main>
+    <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-8 w-fit mt-10 mb-4">
       {waifus?.map((waifu) => (
-        <div key={waifu.name}>
-          <Image src={waifu.image} alt={waifu.name} width={350} height={450} />
-          <h2>{waifu.name}</h2>
-          <p>{waifu.desc}</p>
-        </div>
+        <WaifuCard waifu={waifu} key={waifu._id} />
       ))}
     </main>
   );
