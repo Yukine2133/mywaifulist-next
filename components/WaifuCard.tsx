@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const WaifuCard = ({ waifu }: { waifu: WaifuProps }) => {
   return (
-    <Link href={waifu._id}>
+    <Link href={`${waifu._id}`}>
       <div className="bg-black-2 w-[340px] rounded-md overflow-hidden ">
         <Image
           src={waifu.image}

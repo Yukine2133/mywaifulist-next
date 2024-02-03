@@ -5,10 +5,15 @@ import { connectDb } from "../lib/connectDb";
 import { redirect } from "next/navigation";
 import { WaifuProps } from "@/app/page";
 
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 export const addWaifu = async (FormData: FormData) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   const name = FormData.get("name");
   const desc = FormData.get("desc");
-  const userId = "222";
+  const userId = user?.id;
   const image = FormData.get("image");
   const appearsIn = FormData.get("appearsIn");
 
