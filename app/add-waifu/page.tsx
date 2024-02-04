@@ -1,10 +1,37 @@
+"use client";
 import { addWaifu } from "@/actions/waifu.actions";
-import { SubmitButton } from "@/components/SubmitButton";
+import * as z from "zod";
 
-const AddWaifu = async () => {
-  return (
-    <div className="bg-black-2 p-4 justify-center max-w-[1200px] mx-auto items-center flex mt-8 text-[#9ca3af] ">
-      <form className="flex flex-col w-96 " action={addWaifu}>
+import { WaifuValidation } from "@/lib/validations/user.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import WaifuForm from "@/components/WaifuForm";
+
+const AddWaifu = () => {
+  const form = useForm({
+    resolver: zodResolver(WaifuValidation),
+    defaultValues: {
+      name: "",
+      desc: "",
+      image: "",
+      appearsIn: "",
+    },
+  });
+  async function onSubmit(values: z.infer<typeof WaifuValidation>) {
+    await addWaifu({
+      name: values.name,
+      image: values.image,
+      desc: values.desc,
+      appearsIn: values.appearsIn,
+    });
+  }
+  return <WaifuForm form={form} onSubmit={onSubmit} label="Add Waifu" />;
+};
+
+export default AddWaifu;
+
+{
+  /* <form className="flex flex-col w-96 " action={addWaifu}>
         <label>Name</label>
         <input
           className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md"
@@ -32,9 +59,5 @@ const AddWaifu = async () => {
         />
         <hr className="opacity-20" />
         <SubmitButton />
-      </form>
-    </div>
-  );
-};
-
-export default AddWaifu;
+      </form> */
+}

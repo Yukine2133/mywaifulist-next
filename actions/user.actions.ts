@@ -1,3 +1,5 @@
+"use server";
+
 import { connectDb } from "@/lib/connectDb";
 import { User } from "@/models/user.model";
 import { Waifu } from "@/models/waifu.model";

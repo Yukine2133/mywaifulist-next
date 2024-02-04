@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const waifuSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
+  userId: { type: String },
   name: { type: String, required: true },
   image: { type: String, required: true },
   desc: { type: String },
