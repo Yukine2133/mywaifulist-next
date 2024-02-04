@@ -87,3 +87,37 @@ export const updateWaifu = async ({
     console.error(error);
   }
 };
+
+export const likeWaifu = async (id: string) => {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to like the waifu." };
+    }
+
+    await connectDb();
+
+    const existingWaifu = await Waifu.findById(id);
+
+    if (!existingWaifu) {
+      return { message: "Waifu not found" };
+    }
+
+    const userIndex = existingWaifu.likes.indexOf(user.id);
+
+    if (userIndex !== -1) {
+      // If the user has already liked the waifu, remove their like
+      existingWaifu.likes.splice(userIndex, 1);
+    } else {
+      // If the user has not liked the waifu, add their like
+      existingWaifu.likes.push(user.id);
+    }
+
+    await existingWaifu.save();
+    revalidatePath(`/${id}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
