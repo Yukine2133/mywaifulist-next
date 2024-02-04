@@ -29,7 +29,10 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
       {profileBelongsToCurrentUser ? (
         <h6 className="mt-4">The waifus that you have created</h6>
       ) : (
-        <h6 className="mt-4">The waifus that user have created</h6>
+        <h6 className="mt-4 text-gray-400">
+          The waifus that
+          <span className="text-gray-200"> {user.given_name}</span> have created
+        </h6>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-auto gap-8 w-fit mt-10 mb-4">
         {waifusArray.map((waifu) => (
