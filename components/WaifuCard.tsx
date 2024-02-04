@@ -15,7 +15,7 @@ const WaifuCard = ({ waifu }: { waifu: WaifuProps }) => {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="text-center space-y-2">
+        <div className="text-center mt-1 space-y-2">
           <h3>{waifu.name}</h3>
           <hr className="opacity-20 w-9/12 mx-auto" />
           <h3>{waifu.appearsIn}</h3>
