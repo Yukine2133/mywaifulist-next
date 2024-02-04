@@ -4,7 +4,8 @@ import { fetchWaifu, updateWaifu } from "@/actions/waifu.actions";
 import WaifuForm from "@/components/WaifuForm";
 import { WaifuValidation } from "@/lib/validations/user.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -41,6 +42,7 @@ const UpdateWaifu = () => {
       appearsIn: values.appearsIn,
       id: waifuId,
     });
+
     router.push(`/${waifuId}`);
   }
 

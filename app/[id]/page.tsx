@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import { fetchWaifu } from "@/actions/waifu.actions";
 import Image from "next/image";
@@ -7,36 +5,20 @@ import { WaifuProps } from "../page";
 import { AiFillHeart } from "react-icons/ai";
 import DeleteButton from "@/components/DeleteButton";
 import EditButton from "@/components/EditButton";
-import IsCurrentUserCreator from "@/lib/IsCurrentUserCreator";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const AboutWaifu = ({ params }: { params: { id: string } }) => {
-  const [waifu, setWaifu] = useState<WaifuProps | null>(null);
-  // const [isCurrentUserCreator, setIsCurrentUserCreator] =
-  //   useState<boolean>(false);
+const AboutWaifu = async ({ params }: { params: { id: string } }) => {
+  const { getUser } = getKindeServerSession();
+
+  const user = await getUser();
 
   const { id } = params;
 
+  const waifu = await fetchWaifu(id);
+
+  const isCreator = waifu?.userId === user?.id;
+
   const hasAdded = 400;
-
-  useEffect(() => {
-    const _fetchWaifu = async (id: string) => {
-      const waifu = await fetchWaifu(id);
-      setWaifu(waifu);
-    };
-
-    _fetchWaifu(id);
-  }, [id]);
-
-  // useEffect(() => {
-  //   const checkCurrentUserCreator = async () => {
-  //     const isCreatorFunction = await IsCurrentUserCreator();
-
-  //     const currentUserIsCreator = isCreatorFunction(waifu?.userId!);
-  //     setIsCurrentUserCreator(currentUserIsCreator);
-  //   };
-
-  //   checkCurrentUserCreator();
-  // }, [waifu?.userId]);
 
   return (
     <article className="mt-10 px-4">
@@ -52,14 +34,13 @@ const AboutWaifu = ({ params }: { params: { id: string } }) => {
           <button className="w-full gap-2 text-lg flex items-center justify-center rounded-full bg-pink-500  m-2 text-white py-2 mx-2 font-medium cursor-pointer  active:scale-105">
             <AiFillHeart className=" h-5 w-5 fill-current" /> Like
           </button>
-          {/* {isCurrentUserCreator && (
+
+          {isCreator && (
             <>
               <DeleteButton id={id} />
               <EditButton id={id} />
             </>
-          )} */}
-          <DeleteButton id={id} />
-          <EditButton id={id} />
+          )}
         </div>
         <div className="w-full flex  flex-col ">
           <div className="flex justify-between">

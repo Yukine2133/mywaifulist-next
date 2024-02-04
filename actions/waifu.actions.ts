@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { WaifuProps } from "@/app/page";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const addWaifu = async ({ name, desc, image, appearsIn }: any) => {
   const { getUser } = getKindeServerSession();
@@ -80,9 +80,10 @@ export const updateWaifu = async ({
     existingWaifu.appearsIn = appearsIn;
 
     await existingWaifu.save();
+    revalidatePath(`/${id}`);
+    revalidatePath(`/`);
     return existingWaifu;
   } catch (error) {
     console.error(error);
   }
-  revalidatePath("/");
 };
