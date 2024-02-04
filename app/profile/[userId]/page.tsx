@@ -1,4 +1,9 @@
-import { IUser, fetchUser, fetchUserWaifus } from "@/actions/user.actions";
+import {
+  IUser,
+  fetchUser,
+  fetchUserLikedWaifus,
+  fetchUserWaifus,
+} from "@/actions/user.actions";
 import WaifuCard from "@/components/WaifuCard";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -9,6 +14,7 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
   const user: IUser = await fetchUser(params.userId);
 
   const waifus = await fetchUserWaifus(params.userId);
+  const likedWaifus = await fetchUserLikedWaifus(params.userId);
 
   const waifusArray = Array.isArray(waifus) ? waifus : [];
 
@@ -37,6 +43,20 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-auto gap-8 w-fit mt-10 mb-4">
         {waifusArray.map((waifu) => (
           <WaifuCard key={waifu._id} waifu={waifu} />
+        ))}
+      </div>
+
+      {profileBelongsToCurrentUser ? (
+        <h6 className="mt-4">The waifus that you have liked </h6>
+      ) : (
+        <h6 className="mt-4">
+          The waifus that{" "}
+          <span className="text-gray-200">{user.given_name}</span> have liked
+        </h6>
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-auto gap-8 w-fit mt-10 mb-4">
+        {likedWaifus.map((likedWaifu) => (
+          <WaifuCard key={likedWaifu._id} waifu={likedWaifu} />
         ))}
       </div>
     </div>

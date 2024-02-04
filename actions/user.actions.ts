@@ -53,3 +53,16 @@ export const fetchUserWaifus = async (userId: string) => {
     return { message: "Something went wrong when fetching user waifus." };
   }
 };
+
+export const fetchUserLikedWaifus = async (userId: string) => {
+  try {
+    await connectDb();
+
+    const likedWaifus = await Waifu.find({ likes: userId });
+
+    return likedWaifus;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error fetching user's liked waifus");
+  }
+};
