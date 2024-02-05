@@ -7,6 +7,7 @@ import EditButton from "@/components/EditButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
+import CommentList from "@/components/CommentList";
 
 const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
@@ -60,6 +61,7 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
         </div>
       </section>
       <CommentSection id={id} />
+      <CommentList id={id} />
     </article>
   );
 };

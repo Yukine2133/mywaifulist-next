@@ -162,8 +162,27 @@ export const addCommentToWaifu = async ({
     });
 
     await existingWaifu.save(); // Await the save operation
+    revalidatePath(`/${waifuId}`);
   } catch (error) {
     console.error(error);
     throw new Error("Error adding comment to waifu");
+  }
+};
+export const fetchWaifuComments = async (waifuId: string) => {
+  try {
+    await connectDb();
+
+    const existingWaifu = await Waifu.findById(waifuId);
+
+    if (!existingWaifu) {
+      return { message: "Waifu not found" };
+    }
+
+    const comments = existingWaifu.comments;
+
+    return comments;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error fetching comments for waifu");
   }
 };
