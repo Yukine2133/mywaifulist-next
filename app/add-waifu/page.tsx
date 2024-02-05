@@ -29,35 +29,3 @@ const AddWaifu = () => {
 };
 
 export default AddWaifu;
-
-{
-  /* <form className="flex flex-col w-96 " action={addWaifu}>
-        <label>Name</label>
-        <input
-          className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md"
-          type="text"
-          name="name"
-        />
-        <label>Appears In</label>
-        <input
-          className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md"
-          type="text"
-          name="appearsIn"
-        />
-        <label>Description</label>
-
-        <textarea
-          className="bg-[#27272a]  h-[150px] outline-none px-3 py-2 mb-4 rounded-md"
-          name="desc"
-        />
-        <label>Image</label>
-
-        <input
-          className="bg-[#27272a] outline-none px-3 py-2 rounded-md"
-          type="text"
-          name="image"
-        />
-        <hr className="opacity-20" />
-        <SubmitButton />
-      </form> */
-}

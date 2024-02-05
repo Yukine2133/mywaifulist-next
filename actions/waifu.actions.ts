@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { WaifuProps } from "@/app/page";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export const addWaifu = async ({ name, desc, image, appearsIn }: any) => {
   const { getUser } = getKindeServerSession();
@@ -119,5 +119,51 @@ export const likeWaifu = async (id: string) => {
     revalidatePath(`/${id}`);
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const addCommentToWaifu = async ({
+  waifuId,
+  content,
+}: {
+  waifuId: string;
+  content: string;
+}) => {
+  const currentDate = new Date();
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  } as const;
+
+  const formattedDate = currentDate.toLocaleString("en-US", options);
+
+  try {
+    const { getUser } = getKindeServerSession();
+    await connectDb();
+    const user = await getUser();
+
+    const existingWaifu = await Waifu.findById(waifuId);
+
+    if (!existingWaifu) {
+      return { message: "Waifu not found" };
+    }
+
+    existingWaifu.comments = existingWaifu.comments || [];
+    existingWaifu.comments.push({
+      user: user?.id,
+      content: content,
+      timestamp: formattedDate,
+    });
+
+    await existingWaifu.save(); // Await the save operation
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error adding comment to waifu");
   }
 };

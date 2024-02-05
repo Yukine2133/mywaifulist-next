@@ -12,7 +12,6 @@ import { SubmitButton } from "./SubmitButton";
 import * as z from "zod";
 
 import { WaifuValidation } from "@/lib/validations/user.validation";
-import { UseFormReturn } from "react-hook-form";
 
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof WaifuValidation>) => void;
@@ -35,7 +34,7 @@ const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
             render={({ field }) => (
               <FormItem className="">
                 <FormLabel>Name</FormLabel>
-                <FormControl>
+                <FormControl className="border-0 ">
                   <Input
                     type="text"
                     className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
@@ -53,7 +52,7 @@ const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Appears In</FormLabel>
-                <FormControl>
+                <FormControl className="border-0 ">
                   <Input
                     type="text"
                     className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
@@ -71,7 +70,7 @@ const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>
-                <FormControl>
+                <FormControl className="border-0 ">
                   <Textarea
                     rows={8}
                     className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
@@ -89,7 +88,7 @@ const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
             render={({ field }) => (
               <FormItem className="outline-none">
                 <FormLabel>Image</FormLabel>
-                <FormControl>
+                <FormControl className="border-0 ">
                   <Input
                     type="text"
                     className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"

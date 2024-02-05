@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { fetchWaifu } from "@/actions/waifu.actions";
 import Image from "next/image";
-import { WaifuProps } from "../page";
 import { AiFillHeart } from "react-icons/ai";
 import DeleteButton from "@/components/DeleteButton";
 import EditButton from "@/components/EditButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import LikeButton from "@/components/LikeButton";
+import CommentSection from "@/components/CommentSection";
 
 const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
@@ -59,6 +59,7 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </section>
+      <CommentSection id={id} />
     </article>
   );
 };

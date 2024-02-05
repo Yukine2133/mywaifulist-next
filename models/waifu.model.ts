@@ -7,6 +7,7 @@ const waifuSchema = new mongoose.Schema({
   desc: { type: String },
   appearsIn: { type: String, required: true },
   likes: [{ type: String }],
+  comments: [{ user: String, content: String, timestamp: Date }],
 });
 
 export const Waifu =
