@@ -14,11 +14,14 @@ const CommentSection = ({ id }: { id: string }) => {
       content: "",
     },
   });
+  const { reset } = form;
+
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
     await addCommentToWaifu({
       content: values.content,
       waifuId: id,
     });
+    reset();
   }
   return (
     <section className="">

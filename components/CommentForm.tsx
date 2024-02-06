@@ -16,12 +16,12 @@ interface WaifuProps {
 }
 const CommentForm = ({ form, onSubmit }: WaifuProps) => {
   return (
-    <div className="p-4 flex-col justify-center w-full  mx-auto items-center flex mt-8  ">
+    <div className="p-4 flex-col justify-center xl:w-full  mx-auto items-center flex mt-8  ">
       <label className="font-medium text-zinc-200 mb-4">Comments</label>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[900px] mt-4 "
+          className="flex flex-col w-[500px] md:w-[690px] lg:w-[900px] mt-4 "
         >
           <FormField
             control={form.control}
