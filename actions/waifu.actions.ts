@@ -186,3 +186,32 @@ export const fetchWaifuComments = async (waifuId: string) => {
     throw new Error("Error fetching comments for waifu");
   }
 };
+
+export const deleteWaifuComment = async (
+  waifuId: string,
+  commentId: string
+) => {
+  try {
+    await connectDb();
+
+    // Find the waifu by its ID
+    const existingWaifu = await Waifu.findById(waifuId);
+
+    if (!existingWaifu) {
+      console.log("Waifu not found");
+      return;
+    }
+
+    // Filter out the comment with the given ID
+    existingWaifu.comments = existingWaifu.comments.filter(
+      (comment: any) => comment._id.toString() !== commentId
+    );
+
+    revalidatePath(`/${waifuId}`);
+
+    // Save the updated waifu
+    await existingWaifu.save();
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+  }
+};

@@ -11,7 +11,7 @@ interface LikeButtonProps {
 }
 
 const LikeButton = ({ id, user, likes }: LikeButtonProps) => {
-  const isLiked = likes?.includes(user.id!);
+  const isLiked = likes?.includes(user?.id!);
 
   return (
     <button
