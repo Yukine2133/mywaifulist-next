@@ -3,6 +3,8 @@ import { fetchWaifuComments } from "@/actions/waifu.actions";
 import Image from "next/image";
 import React from "react";
 import ButtonDelete from "./ButtonDelete";
+import ButtonEdit from "./EditModal";
+import EditModal from "./EditModal";
 
 interface CommentProps {
   user: string;
@@ -56,7 +58,8 @@ const CommentList = async ({ id }: { id: string }) => {
                 <p className="text-gray-400 text-sm">
                   {formattedDate}, {formattedTime}
                 </p>
-                <ButtonDelete waifuId={id} id={comment._id} />
+                <ButtonDelete waifuId={id} id={comment._id.toString()} />
+                <EditModal waifuId={id} id={comment._id.toString()} />
               </div>
             </div>
             <p className="mt-4 bg-black-2 p-3 text-gray-200 max-w-[850px] 2xl:max-w-[830px] whitespace-pre-line break-all rounded-md">
