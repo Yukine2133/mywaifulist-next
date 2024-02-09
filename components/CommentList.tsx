@@ -58,13 +58,15 @@ const CommentList = async ({ id }: { id: string }) => {
                 <p className="text-gray-400 text-sm">
                   {formattedDate}, {formattedTime}
                 </p>
+              </div>
+            </div>
+            <div className="mt-3 bg-black-2 p-3 text-gray-200 max-w-[850px] 2xl:max-w-[830px] whitespace-pre-line break-all rounded-md flex justify-between relative">
+              <p className="mt-2">{comment.content}</p>
+              <div className="flex gap-3 items-center absolute top-1 right-0 ">
                 <ButtonDelete waifuId={id} id={comment._id.toString()} />
                 <EditModal waifuId={id} id={comment._id.toString()} />
               </div>
             </div>
-            <p className="mt-4 bg-black-2 p-3 text-gray-200 max-w-[850px] 2xl:max-w-[830px] whitespace-pre-line break-all rounded-md">
-              {comment.content}
-            </p>
           </div>
         );
       })}

@@ -15,6 +15,7 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { useState } from "react";
+import { AiFillEdit } from "react-icons/ai";
 
 const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,7 @@ const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
     try {
       await updateWaifuComment(waifuId, id, values.content);
-      setIsOpen(false); // Close the dialog after successfully updating the comment
+      setIsOpen(false);
     } catch (error) {
       console.error("Error updating comment:", error);
     }
@@ -37,7 +38,9 @@ const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)} modal>
       <DialogTrigger asChild>
-        <button>Click here</button>
+        <button>
+          <AiFillEdit className="text-blue-500" />
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-black-2 outline-none border-0">
         <DialogHeader>
@@ -61,7 +64,12 @@ const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
                 </FormItem>
               )}
             />
-            <button type="submit">Save</button>
+            <button
+              className="bg-white text-black rounded-md px-2 py-1 mx-auto flex hover:bg-slate-950 hover:text-white transition-colors duration-300"
+              type="submit"
+            >
+              Save
+            </button>
           </form>
         </Form>
       </DialogContent>
