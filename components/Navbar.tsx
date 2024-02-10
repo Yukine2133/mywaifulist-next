@@ -8,6 +8,7 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import { addUser } from "@/actions/user.actions";
+import SearchInput from "./SearchInput";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -39,14 +40,15 @@ const Navbar = async () => {
           </Link>
         </div>
       </div>
-      <div className="items-center flex justify-start px-2 rounded-lg bg-[#27272a]">
+      {/* <div className="items-center flex justify-start px-2 rounded-lg bg-[#27272a]">
         <input
           type="text"
           placeholder="Search"
           className="p-2 bg-transparent outline-none w-fit text-sm lg:text-base"
         />
         <BiSearch className="text-lg lg:text-xl" />
-      </div>
+      </div> */}
+      <SearchInput />
       {user ? (
         <div className=" items-center gap-4 lg:flex hidden">
           <Link href={`/profile/${user.id}`}>

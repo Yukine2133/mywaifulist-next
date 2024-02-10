@@ -250,3 +250,17 @@ export const updateWaifuComment = async (
     console.error("Error updating comment:", error);
   }
 };
+
+export const searchWaifu = async (q: string | null) => {
+  await connectDb();
+  try {
+    const waifus: WaifuProps[] = await Waifu.find({
+      name: q,
+    });
+    console.log(waifus);
+    return waifus;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to search waifus");
+  }
+};
