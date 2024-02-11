@@ -16,6 +16,10 @@ const UpdateWaifu = () => {
   const searchParams = useSearchParams();
   const waifuId = searchParams.get("id");
 
+  if (!waifuId) {
+    router.push("/");
+  }
+
   const form = useForm({
     resolver: zodResolver(WaifuValidation),
   });
