@@ -19,7 +19,11 @@ const SearchInput = () => {
     }
 
     const encodedSearchQuery = encodeURI(searchQuery);
-    router.push(`/search?q=${encodedSearchQuery}`);
+    if (encodedSearchQuery) {
+      router.push(`/search?q=${encodedSearchQuery}`);
+    } else {
+      router.push("/");
+    }
   };
 
   return (

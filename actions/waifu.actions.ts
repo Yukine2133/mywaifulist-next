@@ -154,6 +154,10 @@ export const addCommentToWaifu = async ({
       return { message: "Waifu not found" };
     }
 
+    if (!user) {
+      return { message: "You need to be authenticated to comment." };
+    }
+
     existingWaifu.comments = existingWaifu.comments || [];
     existingWaifu.comments.push({
       user: user?.id,
@@ -255,9 +259,9 @@ export const searchWaifu = async (q: string | null) => {
   await connectDb();
   try {
     const waifus: WaifuProps[] = await Waifu.find({
-      name: q,
+      name: { $regex: new RegExp(q || "", "i") },
     });
-    console.log(waifus);
+
     return waifus;
   } catch (error) {
     console.error(error);
