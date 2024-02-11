@@ -25,20 +25,16 @@ const Navbar = async () => {
         >
           My<span className="text-pink-500 font-bold">Waifu</span>List
         </Link>
-        <div className="lg:flex hidden gap-6">
-          <Link href="/random">
-            <h2 className="font-medium hover:text-gray-200 transition-colors duration-300 ">
-              Random
-            </h2>
-          </Link>
-
-          <Link
-            href="/add-waifu"
-            className="font-medium hover:text-gray-200 transition-colors duration-300"
-          >
-            Add Waifu
-          </Link>
-        </div>
+        {user ? (
+          <div className="lg:flex hidden ">
+            <Link
+              href="/add-waifu"
+              className="font-medium hover:text-gray-200 transition-colors duration-300"
+            >
+              Add Waifu
+            </Link>
+          </div>
+        ) : null}
       </div>
       <SearchInput />
       {user ? (

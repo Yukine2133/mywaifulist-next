@@ -8,15 +8,18 @@ import { WaifuProps } from "@/app/page";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 
-export const addWaifu = async ({ name, desc, image, appearsIn }: any) => {
+// CRUD Waifus
+
+export const addWaifu = async ({
+  name,
+  desc,
+  image,
+  appearsIn,
+}: WaifuProps) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  // const name = FormData.get("name");
-  // const desc = FormData.get("desc");
   const userId = user?.id;
-  // const image = FormData.get("image");
-  // const appearsIn = FormData.get("appearsIn");
 
   if (!name || !desc || !userId || !image || !appearsIn) return;
 
@@ -24,7 +27,10 @@ export const addWaifu = async ({ name, desc, image, appearsIn }: any) => {
     await connectDb();
     await Waifu.create({ name, desc, userId, image, appearsIn });
   } catch (error) {
-    console.error(error);
+    return {
+      message: "Failed to add the waifu. Please try again.",
+      error,
+    };
   }
   redirect("/");
 };
@@ -35,9 +41,10 @@ export const fetchWaifus = async () => {
     const waifus: WaifuProps[] = await Waifu.find();
     return waifus;
   } catch (error) {
-    console.error(error);
+    return {
+      message: "Failed to fetch the waifus. Please try to refresh the page.",
+    };
   }
-  revalidatePath("/");
 };
 
 export const fetchWaifu = async (id: string) => {
@@ -46,31 +53,53 @@ export const fetchWaifu = async (id: string) => {
     const waifu = await Waifu.findById(id);
     return waifu;
   } catch (error) {
-    console.error(error);
+    return {
+      message: "Failed to fetch the waifu. Please try to refresh the page.",
+    };
   }
 };
 
 export const deleteWaifu = async (id: string) => {
   try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
     await connectDb();
-    if (!id) return { message: "Something went wrong when deleting the error" };
-    await Waifu.findByIdAndDelete(id);
+    if (!id) return { message: "Something went wrong when deleting the waifu" };
+    if (!user) {
+      return;
+    }
+    const waifu = await Waifu.findByIdAndDelete(id);
+    if (waifu.userId != user?.id) {
+      return { message: "This is not your waifu. You can't delete." };
+    }
   } catch (error) {
     console.error(error);
   }
   redirect("/");
 };
+
+interface UpdateWaifuProps extends WaifuProps {
+  id: string;
+}
 export const updateWaifu = async ({
   name,
   desc,
   image,
   appearsIn,
   id,
-}: any) => {
+}: UpdateWaifuProps) => {
   try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
     await connectDb();
 
     const existingWaifu = await Waifu.findById(id);
+
+    if (existingWaifu.userId != user?.id) {
+      return { message: "This is not your waifu. You can't update :)" };
+    }
 
     if (!existingWaifu) return { message: "Waifu not found" };
 
@@ -84,9 +113,11 @@ export const updateWaifu = async ({
     revalidatePath(`/`);
     return existingWaifu;
   } catch (error) {
-    console.error(error);
+    return { message: "Failed to update the waifu", error };
   }
 };
+
+// Like
 
 export const likeWaifu = async (id: string) => {
   try {
@@ -118,9 +149,11 @@ export const likeWaifu = async (id: string) => {
     await existingWaifu.save();
     revalidatePath(`/${id}`);
   } catch (error) {
-    console.error(error);
+    return { message: "Failed to like the waifu", error };
   }
 };
+
+// Comments
 
 export const addCommentToWaifu = async ({
   waifuId,
@@ -165,11 +198,10 @@ export const addCommentToWaifu = async ({
       timestamp: formattedDate,
     });
 
-    await existingWaifu.save(); // Await the save operation
+    await existingWaifu.save();
     revalidatePath(`/${waifuId}`);
   } catch (error) {
-    console.error(error);
-    throw new Error("Error adding comment to waifu");
+    return { message: "Error adding comment to waifu" };
   }
 };
 export const fetchWaifuComments = async (waifuId: string) => {
@@ -186,8 +218,7 @@ export const fetchWaifuComments = async (waifuId: string) => {
 
     return comments;
   } catch (error) {
-    console.error(error);
-    throw new Error("Error fetching comments for waifu");
+    return { message: "Error fetching comments for waifu" };
   }
 };
 
@@ -198,12 +229,10 @@ export const deleteWaifuComment = async (
   try {
     await connectDb();
 
-    // Find the waifu by its ID
     const existingWaifu = await Waifu.findById(waifuId);
 
     if (!existingWaifu) {
-      console.log("Waifu not found");
-      return;
+      return { message: "Waifu not found" };
     }
 
     // Filter out the comment with the given ID
@@ -214,7 +243,7 @@ export const deleteWaifuComment = async (
     await existingWaifu.save();
     revalidatePath(`/${waifuId}`);
   } catch (error) {
-    console.error("Error deleting comment:", error);
+    return { message: "Failed to delete the comment:", error };
   }
 };
 
@@ -230,8 +259,7 @@ export const updateWaifuComment = async (
     const existingWaifu = await Waifu.findById(waifuId);
 
     if (!existingWaifu) {
-      console.log("Waifu not found");
-      return;
+      return { message: "Waifu not found" };
     }
 
     // Find the comment within the waifu's comments array
@@ -240,8 +268,7 @@ export const updateWaifuComment = async (
     );
 
     if (!commentToUpdate) {
-      console.log("Comment not found");
-      return;
+      return { message: "Comment not found" };
     }
 
     // Update the content of the comment
@@ -251,9 +278,11 @@ export const updateWaifuComment = async (
     await existingWaifu.save();
     revalidatePath(`/${waifuId}`);
   } catch (error) {
-    console.error("Error updating comment:", error);
+    return { message: "Failed to update the comment:", error };
   }
 };
+
+// Search
 
 export const searchWaifu = async (q: string | null) => {
   await connectDb();
@@ -264,7 +293,6 @@ export const searchWaifu = async (q: string | null) => {
 
     return waifus;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to search waifus");
+    return { message: "Failed to search waifus", error };
   }
 };

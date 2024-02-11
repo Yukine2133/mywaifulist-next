@@ -8,6 +8,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import * as z from "zod";
 
 const UpdateWaifu = () => {
@@ -35,13 +36,17 @@ const UpdateWaifu = () => {
   }, [waifuId, form]);
 
   async function onSubmit(values: z.infer<typeof WaifuValidation>) {
-    await updateWaifu({
+    const res = await updateWaifu({
       name: values.name,
       image: values.image,
       desc: values.desc,
       appearsIn: values.appearsIn,
-      id: waifuId,
+      id: waifuId || "",
     });
+
+    if (res?.message) {
+      toast(res.message);
+    }
 
     router.push(`/${waifuId}`);
   }

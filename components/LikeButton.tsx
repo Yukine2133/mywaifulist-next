@@ -3,6 +3,7 @@ import { IUser } from "@/actions/user.actions";
 import { likeWaifu } from "@/actions/waifu.actions";
 import { AiFillHeart } from "react-icons/ai";
 import { FaHeartCircleMinus, FaHeartCirclePlus } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 interface LikeButtonProps {
   id: string;
@@ -13,9 +14,16 @@ interface LikeButtonProps {
 const LikeButton = ({ id, user, likes }: LikeButtonProps) => {
   const isLiked = likes?.includes(user?.id!);
 
+  const handleLike = async () => {
+    const res = await likeWaifu(id);
+    if (res?.message) {
+      toast.error(res.message);
+    }
+  };
+
   return (
     <button
-      onClick={() => likeWaifu(id)}
+      onClick={handleLike}
       className="w-full gap-2 text-lg flex items-center justify-center rounded-full bg-pink-500  m-2 text-white py-2 mx-2 font-medium cursor-pointer  active:scale-105"
     >
       {isLiked ? (

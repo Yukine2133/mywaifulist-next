@@ -7,6 +7,7 @@ import {
 import WaifuCard from "@/components/WaifuCard";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { toast } from "react-toastify";
 
 const Profile = async ({ params }: { params: { userId: string } }) => {
   const { getUser } = getKindeServerSession();
@@ -15,6 +16,15 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
 
   const waifus = await fetchUserWaifus(params.userId);
   const likedWaifus = await fetchUserLikedWaifus(params.userId);
+
+  if ("message" in likedWaifus) {
+    toast(likedWaifus.message);
+    return null;
+  }
+  if ("message" in waifus) {
+    toast(waifus.message);
+    return null;
+  }
 
   const waifusArray = Array.isArray(waifus) ? waifus : [];
 

@@ -1,5 +1,6 @@
 import WaifuCard from "@/components/WaifuCard";
 import { searchWaifu } from "@/actions/waifu.actions";
+import { toast } from "react-toastify";
 
 const SearchPage = async ({
   searchParams,
@@ -9,6 +10,11 @@ const SearchPage = async ({
   const query = searchParams.q;
 
   const waifus = await searchWaifu(query);
+
+  if ("message" in waifus) {
+    toast(waifus.message);
+    return null;
+  }
 
   return (
     <div>

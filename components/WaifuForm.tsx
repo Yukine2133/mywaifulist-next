@@ -8,10 +8,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { SubmitButton } from "./SubmitButton";
+
 import * as z from "zod";
 
 import { WaifuValidation } from "@/lib/validations/user.validation";
+import SubmitButton from "./SubmitButton";
+import { useForm } from "react-hook-form";
 
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof WaifuValidation>) => void;

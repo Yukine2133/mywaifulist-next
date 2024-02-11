@@ -8,6 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
 import CommentList from "@/components/CommentList";
+import { toast } from "react-toastify";
 
 const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
@@ -18,7 +19,21 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
 
   const waifu = await fetchWaifu(id);
 
+  if (waifu?.message) {
+    toast(waifu.message);
+  }
+
   const isCreator = waifu?.userId === user?.id;
+
+  if (!waifu) {
+    return (
+      <div className="flex justify-center mt-10 ">
+        <h1 className="text-2xl">
+          Something went wrong. Please try refreshing the page.
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <article className="mt-10 px-4">

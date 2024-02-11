@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import CommentForm from "./CommentForm";
 import { addCommentToWaifu } from "@/actions/waifu.actions";
+import { toast } from "react-toastify";
 
 const CommentSection = ({ id }: { id: string }) => {
   const form = useForm({
@@ -17,10 +18,13 @@ const CommentSection = ({ id }: { id: string }) => {
   const { reset } = form;
 
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
-    await addCommentToWaifu({
+    const res = await addCommentToWaifu({
       content: values.content,
       waifuId: id,
     });
+    if (res?.message) {
+      toast.error(res.message);
+    }
     reset();
   }
   return (
