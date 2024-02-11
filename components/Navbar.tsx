@@ -17,7 +17,7 @@ const Navbar = async () => {
     await addUser(user);
   }
   return (
-    <nav className="bg-black py-3 px-3 md:px-10 flex items-center justify-between lg:justify-evenly text-[#9ca3af]">
+    <nav className="bg-black py-3 px-3 md:px-10 flex items-center justify-between lg:justify-evenly text-[#9ca3af] sticky top-0">
       <div className="flex items-center gap-6">
         <Link
           href="/"
@@ -40,14 +40,6 @@ const Navbar = async () => {
           </Link>
         </div>
       </div>
-      {/* <div className="items-center flex justify-start px-2 rounded-lg bg-[#27272a]">
-        <input
-          type="text"
-          placeholder="Search"
-          className="p-2 bg-transparent outline-none w-fit text-sm lg:text-base"
-        />
-        <BiSearch className="text-lg lg:text-xl" />
-      </div> */}
       <SearchInput />
       {user ? (
         <div className=" items-center gap-4 lg:flex hidden">
