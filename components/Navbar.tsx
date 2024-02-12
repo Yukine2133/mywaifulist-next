@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BiSearch, BiMenu } from "react-icons/bi";
 import {
   RegisterLink,
   LoginLink,
@@ -9,6 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import { addUser } from "@/actions/user.actions";
 import SearchInput from "./SearchInput";
+import Menubar from "./Menubar";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -62,9 +62,7 @@ const Navbar = async () => {
           </RegisterLink>
         </div>
       )}
-      <div className="lg:hidden">
-        <BiMenu className="text-2xl" />
-      </div>
+      <Menubar user={user!} />
     </nav>
   );
 };
