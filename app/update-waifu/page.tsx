@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import * as z from "zod";
 
 const UpdateWaifu = () => {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const waifuId = searchParams.get("id");
@@ -40,6 +42,7 @@ const UpdateWaifu = () => {
   }, [waifuId, form]);
 
   async function onSubmit(values: z.infer<typeof WaifuValidation>) {
+    setLoading(true);
     const res = await updateWaifu({
       name: values.name,
       image: values.image,
@@ -48,6 +51,8 @@ const UpdateWaifu = () => {
       id: waifuId || "",
     });
 
+    setLoading(false);
+
     if (res?.message) {
       toast(res.message);
     }
@@ -55,7 +60,14 @@ const UpdateWaifu = () => {
     router.push(`/${waifuId}`);
   }
 
-  return <WaifuForm form={form} onSubmit={onSubmit} label="Edit Waifu" />;
+  return (
+    <WaifuForm
+      loading={loading}
+      form={form}
+      onSubmit={onSubmit}
+      label="Edit Waifu"
+    />
+  );
 };
 
 export default UpdateWaifu;

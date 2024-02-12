@@ -13,15 +13,15 @@ import * as z from "zod";
 
 import { WaifuValidation } from "@/lib/validations/user.validation";
 import SubmitButton from "./SubmitButton";
-import { useForm } from "react-hook-form";
 
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof WaifuValidation>) => void;
   form: any;
   label: string;
+  loading: boolean;
 }
 
-const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
+const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
   return (
     <div className="bg-black-2 p-4 flex-col justify-center max-w-[1200px] mx-auto items-center flex mt-8 text-[#9ca3af] ">
       <h2 className="text-gray-300">{label}</h2>
@@ -103,7 +103,7 @@ const WaifuForm = ({ form, onSubmit, label }: WaifuProps) => {
             )}
           />
           <hr className="opacity-50" />
-          <SubmitButton />
+          <SubmitButton loading={loading} />
         </form>
       </Form>
     </div>
