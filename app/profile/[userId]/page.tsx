@@ -9,6 +9,17 @@ import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { toast } from "react-toastify";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { userId: string };
+}) => {
+  const user: IUser = await fetchUser(params.userId);
+  return {
+    title: user.given_name,
+  };
+};
+
 const Profile = async ({ params }: { params: { userId: string } }) => {
   const { getUser } = getKindeServerSession();
   const currentUser = await getUser();

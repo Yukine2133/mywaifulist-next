@@ -2,6 +2,18 @@ import WaifuCard from "@/components/WaifuCard";
 import { searchWaifu } from "@/actions/waifu.actions";
 import { toast } from "react-toastify";
 
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: { q: string | null };
+}) => {
+  const query = searchParams.q;
+
+  return {
+    title: query,
+  };
+};
+
 const SearchPage = async ({
   searchParams,
 }: {

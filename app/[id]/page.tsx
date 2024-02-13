@@ -10,6 +10,18 @@ import CommentSection from "@/components/CommentSection";
 import CommentList from "@/components/CommentList";
 import { toast } from "react-toastify";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const waifu = await fetchWaifu(params.id);
+  return {
+    title: waifu.name,
+    description: waifu.desc,
+  };
+};
+
 const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
 
