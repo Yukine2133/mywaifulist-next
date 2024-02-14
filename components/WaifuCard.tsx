@@ -18,7 +18,11 @@ const WaifuCard = ({ waifu }: { waifu: WaifuProps }) => {
         <div className="text-center mt-1 space-y-2">
           <h3>{waifu.name}</h3>
           <hr className="opacity-20 w-9/12 mx-auto" />
-          <h3>{waifu.appearsIn}</h3>
+          <h3>
+            {waifu.appearsIn.length > 36
+              ? waifu.appearsIn.slice(0, 36) + "..."
+              : waifu.appearsIn}
+          </h3>
         </div>
       </div>
     </Link>
