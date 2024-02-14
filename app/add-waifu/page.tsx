@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const AddWaifu = () => {
   const [loading, setLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(WaifuValidation),
     defaultValues: {
@@ -23,6 +24,7 @@ const AddWaifu = () => {
 
   async function onSubmit(values: z.infer<typeof WaifuValidation>) {
     setLoading(true);
+
     const res = await addWaifu({
       name: values.name,
       image: values.image,
@@ -34,6 +36,7 @@ const AddWaifu = () => {
       toast(res.message);
     }
   }
+
   return (
     <WaifuForm
       loading={loading}

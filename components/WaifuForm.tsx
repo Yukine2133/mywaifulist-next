@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Form,
   FormControl,
@@ -13,6 +15,8 @@ import * as z from "zod";
 
 import { WaifuValidation } from "@/lib/validations/user.validation";
 import SubmitButton from "./SubmitButton";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { UploadDropzone } from "@/lib/uploadthing";
 
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof WaifuValidation>) => void;
@@ -88,13 +92,18 @@ const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
             control={form.control}
             name="image"
             render={({ field }) => (
-              <FormItem className="outline-none">
-                <FormLabel>Image</FormLabel>
+              <FormItem>
                 <FormControl className="border-0 ">
-                  <Input
-                    type="text"
-                    className="bg-[#27272a]  outline-none px-3 py-2 mb-4 rounded-md focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
-                    {...field}
+                  <UploadDropzone
+                    endpoint={"media"}
+                    onClientUploadComplete={(res) => {
+                      if (res?.[0].url) {
+                        field.onChange(res?.[0].url);
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      console.error("Ooops something is wrong", error);
+                    }}
                   />
                 </FormControl>
 
@@ -102,6 +111,7 @@ const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
               </FormItem>
             )}
           />
+
           <hr className="opacity-50" />
           <SubmitButton loading={loading} />
         </form>
