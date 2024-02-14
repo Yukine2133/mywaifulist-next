@@ -49,7 +49,7 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
 
   return (
     <article className="mt-10 px-4">
-      <section className="bg-black-2 md:w-2/3 lg:w-3/4 mx-auto flex-col lg:flex-row flex gap-8 max-w-full">
+      <section className="bg-black-2 md:w-2/3 lg:w-3/4 mx-auto flex-col lg:flex-row flex gap-7 max-w-full">
         <div className="">
           <Image
             src={waifu?.image!}
@@ -80,8 +80,8 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
           </div>
-          <hr className="opacity-20 mt-4 w-[90%] mx-auto" />
-          <div className="mt-6 mb-2 px-4 lg:px-0">
+          <hr className="opacity-20 mt-4 w-[90%] mx-auto " />
+          <div className="mt-6 mb-2 px-4 lg:px-0 break-all ">
             <h4 className="text-xl">Description</h4>
             <p className="text-gray-400 w-full">{waifu?.desc!}</p>
           </div>
