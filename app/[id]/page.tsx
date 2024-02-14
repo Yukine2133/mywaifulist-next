@@ -32,7 +32,7 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const waifu = await fetchWaifu(id);
 
   if (waifu?.message) {
-    toast(waifu.message);
+    toast.error(waifu.message);
   }
 
   const isCreator = waifu?.userId === user?.id;

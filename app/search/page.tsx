@@ -24,7 +24,7 @@ const SearchPage = async ({
   const waifus = await searchWaifu(query);
 
   if ("message" in waifus) {
-    toast(waifus.message);
+    toast.error(waifus.message);
     return null;
   }
 

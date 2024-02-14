@@ -17,6 +17,7 @@ import { WaifuValidation } from "@/lib/validations/user.validation";
 import SubmitButton from "./SubmitButton";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { toast } from "react-toastify";
 
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof WaifuValidation>) => void;
@@ -101,8 +102,8 @@ const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
                         field.onChange(res?.[0].url);
                       }
                     }}
-                    onUploadError={(error: Error) => {
-                      console.error("Ooops something is wrong", error);
+                    onUploadError={(error: any) => {
+                      toast.error(error);
                     }}
                   />
                 </FormControl>

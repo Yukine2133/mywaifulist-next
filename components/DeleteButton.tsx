@@ -9,7 +9,7 @@ const DeleteButton = ({ id }: { id: string }) => {
   const handleDelete = async () => {
     const res = await deleteWaifu(id);
     if (res?.message) {
-      toast(res.message);
+      toast.error(res.message);
     }
   };
   return (

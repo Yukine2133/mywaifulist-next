@@ -29,11 +29,11 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
   const likedWaifus = await fetchUserLikedWaifus(params.userId);
 
   if ("message" in likedWaifus) {
-    toast(likedWaifus.message);
+    toast.error(likedWaifus.message);
     return null;
   }
   if ("message" in waifus) {
-    toast(waifus.message);
+    toast.error(waifus.message);
     return null;
   }
 

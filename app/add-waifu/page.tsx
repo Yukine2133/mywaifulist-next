@@ -33,7 +33,7 @@ const AddWaifu = () => {
     });
     setLoading(false);
     if (res?.message) {
-      toast(res.message);
+      toast.error(res.message);
     }
   }
 

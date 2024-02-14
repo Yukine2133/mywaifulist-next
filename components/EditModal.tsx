@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,10 @@ const EditModal = ({ id, waifuId }: { id: string; waifuId: string }) => {
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
     try {
-      await updateWaifuComment(waifuId, id, values.content);
+      const res = await updateWaifuComment(waifuId, id, values.content);
+      if (res?.message) {
+        toast.error(res.message);
+      }
       setIsOpen(false);
     } catch (error) {
       console.error("Error updating comment:", error);

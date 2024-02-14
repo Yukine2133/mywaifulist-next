@@ -54,7 +54,7 @@ const UpdateWaifu = () => {
     setLoading(false);
 
     if (res?.message) {
-      toast(res.message);
+      toast.error(res.message);
     }
 
     router.push(`/${waifuId}`);
