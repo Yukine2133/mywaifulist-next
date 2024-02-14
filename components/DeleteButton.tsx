@@ -15,7 +15,7 @@ const DeleteButton = ({ id }: { id: string }) => {
   return (
     <button
       onClick={handleDelete}
-      className="w-full gap-2 text-lg flex items-center justify-center rounded-full bg-gray-600  m-2 text-gray-300 py-2 mx-2 font-medium cursor-pointer  active:scale-105"
+      className="w-[98%] gap-2 text-lg flex items-center justify-center rounded-full bg-gray-600  m-2 text-gray-300 py-2 mx-2 font-medium cursor-pointer  active:scale-105"
     >
       <AiFillDelete /> Delete
     </button>
