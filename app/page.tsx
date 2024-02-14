@@ -16,7 +16,7 @@ export default async function Home() {
   const waifus = await fetchWaifus();
 
   if ("message" in waifus) {
-    toast(waifus.message);
+    toast.error(waifus.message);
     return null;
   }
 
