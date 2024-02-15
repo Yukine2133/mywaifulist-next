@@ -68,12 +68,12 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
           )}
         </div>
         <div className="w-full flex  flex-col ">
-          <div className="flex justify-between">
-            <h4 className="text-xl pl-4 lg:pl-0 pt-4">{waifu?.name!}</h4>
-            <h4 className="text-xl pt-4">
+          <div className="flex justify-between flex-col xl:flex-row">
+            <h4 className="text-xl pl-2 lg:pl-0 pt-4 ">{waifu?.name!}</h4>
+            <h4 className="text-xl pl-2 pt-4 break-all ">
               Appears in: <span className="text-base">{waifu?.appearsIn!}</span>
             </h4>
-            <div className="flex justify-between items-center ">
+            <div className="pt-4 xl:pt-0 ">
               <div className="flex h-12 w-32 cursor-default items-center justify-center bg-pink-500 text-center text-lg text-white">
                 <AiFillHeart className="mr-2 h-6 w-6 fill-current" />
                 <span>{waifu?.likes.length}</span>

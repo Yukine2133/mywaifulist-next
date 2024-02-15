@@ -227,15 +227,9 @@ export const deleteWaifuComment = async (
   commentId: string
 ) => {
   try {
-    const { getUser } = getKindeServerSession();
     await connectDb();
-    const user = await getUser();
 
     const existingWaifu = await Waifu.findById(waifuId);
-
-    if (existingWaifu.userId != user?.id) {
-      return { message: "This is not your comment. You can't update :)" };
-    }
 
     if (!existingWaifu) {
       return { message: "Waifu not found" };
@@ -259,15 +253,9 @@ export const updateWaifuComment = async (
   updatedContent: string
 ) => {
   try {
-    const { getUser } = getKindeServerSession();
     await connectDb();
-    const user = await getUser();
 
     const existingWaifu = await Waifu.findById(waifuId);
-
-    if (existingWaifu.userId != user?.id) {
-      return { message: "This is not your comment. You can't update :)" };
-    }
 
     if (!existingWaifu) {
       return { message: "Waifu not found" };
