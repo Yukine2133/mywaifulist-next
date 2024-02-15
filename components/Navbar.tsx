@@ -17,7 +17,7 @@ const Navbar = async () => {
     await addUser(user);
   }
   return (
-    <nav className="bg-black py-3 px-3 md:px-10 flex items-center justify-around lg:justify-evenly text-[#9ca3af] sticky top-0">
+    <nav className="bg-black py-3 px-3 md:px-10 flex items-center justify-around lg:justify-evenly text-[#9ca3af] sticky top-0 w-full">
       <div className="flex items-center gap-6">
         <Link
           href="/"
