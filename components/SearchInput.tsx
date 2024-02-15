@@ -29,15 +29,14 @@ const SearchInput = () => {
   return (
     <form
       onSubmit={onSearch}
-      className="items-center flex justify-start px-2 rounded-lg bg-[#27272a]"
+      className="items-center flex justify-start w-[30%] md:w-fit  px-2 rounded-lg bg-[#27272a]"
     >
       <input
         value={searchQuery || ""}
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search"
-        className="p-2 bg-transparent outline-none w-fit text-sm lg:text-base"
+        className="p-2 bg-transparent outline-none  text-sm lg:text-base"
       />
-      <BiSearch className="text-lg lg:text-xl" />
     </form>
   );
 };
