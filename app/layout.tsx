@@ -33,7 +33,7 @@ export default function RootLayout({
           theme="dark"
         />
         <Navbar />
-        <main className="mx-auto md:mx-0">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );
