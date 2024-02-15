@@ -23,11 +23,6 @@ const SearchPage = async ({
 
   const waifus = await searchWaifu(query);
 
-  if ("message" in waifus) {
-    toast.error(waifus.message);
-    return null;
-  }
-
   return (
     <div>
       <h6 className=" mt-4 flex justify-center gap-1">

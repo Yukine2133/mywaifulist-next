@@ -9,16 +9,10 @@ export interface WaifuProps {
   desc: string;
   _id?: string;
   appearsIn: string;
-  message?: string;
 }
 
 export default async function Home() {
   const waifus = await fetchWaifus();
-
-  if ("message" in waifus) {
-    toast.error(waifus.message);
-    return null;
-  }
 
   if (!waifus) {
     return (

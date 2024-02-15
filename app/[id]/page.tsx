@@ -8,7 +8,6 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
 import CommentList from "@/components/CommentList";
-import { toast } from "react-toastify";
 
 export const generateMetadata = async ({
   params,
@@ -30,10 +29,6 @@ const AboutWaifu = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   const waifu = await fetchWaifu(id);
-
-  if (waifu?.message) {
-    toast.error(waifu.message);
-  }
 
   const isCreator = waifu?.userId === user?.id;
 

@@ -41,9 +41,7 @@ export const fetchWaifus = async () => {
     const waifus: WaifuProps[] = await Waifu.find();
     return waifus;
   } catch (error) {
-    return {
-      message: "Failed to fetch the waifus. Please try to refresh the page.",
-    };
+    console.error(error);
   }
 };
 
@@ -292,6 +290,6 @@ export const searchWaifu = async (q: string | null) => {
 
     return waifus;
   } catch (error) {
-    return { message: "Failed to search waifus", error };
+    console.error(error);
   }
 };

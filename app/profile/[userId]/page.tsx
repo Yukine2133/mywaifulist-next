@@ -28,15 +28,6 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
   const waifus = await fetchUserWaifus(params.userId);
   const likedWaifus = await fetchUserLikedWaifus(params.userId);
 
-  if ("message" in likedWaifus) {
-    toast.error(likedWaifus.message);
-    return null;
-  }
-  if ("message" in waifus) {
-    toast.error(waifus.message);
-    return null;
-  }
-
   const waifusArray = Array.isArray(waifus) ? waifus : [];
 
   const profileBelongsToCurrentUser = currentUser?.id === params.userId;
@@ -83,7 +74,7 @@ const Profile = async ({ params }: { params: { userId: string } }) => {
           <span className="text-gray-200">{user.given_name}</span> has liked
         </h6>
       )}
-      {likedWaifus.length > 0 ? (
+      {likedWaifus && likedWaifus.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-auto gap-8 w-fit mt-10 mb-4">
           {likedWaifus.map((likedWaifu) => (
             <WaifuCard key={likedWaifu._id} waifu={likedWaifu} />

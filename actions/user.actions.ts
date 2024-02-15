@@ -62,6 +62,6 @@ export const fetchUserLikedWaifus = async (userId: string) => {
 
     return likedWaifus;
   } catch (error) {
-    return { message: "Something went wrong when fetching user liked waifus." };
+    console.error(error);
   }
 };
