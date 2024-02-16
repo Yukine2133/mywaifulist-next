@@ -6,6 +6,7 @@ import ButtonDelete from "./ButtonDelete";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import EditModal from "./EditModal";
+import Link from "next/link";
 
 interface CommentProps {
   user: string;
@@ -50,15 +51,19 @@ const CommentList = async ({ id }: { id: string }) => {
             key={comment._id}
           >
             <div className="flex items-center gap-2">
-              <Image
-                src={users[index]?.picture}
-                alt={users[index]?.given_name}
-                width={64}
-                height={64}
-                className="rounded-full"
-              />
+              <Link href={`/profile/${users[index]?.id}`}>
+                <Image
+                  src={users[index]?.picture}
+                  alt={users[index]?.given_name}
+                  width={64}
+                  height={64}
+                  className="rounded-full"
+                />
+              </Link>
               <div>
-                <p>{users[index]?.given_name}</p>
+                <Link href={`/profile/${users[index]?.id}`}>
+                  <p>{users[index]?.given_name}</p>
+                </Link>
                 <p className="text-gray-400 text-sm">
                   {formattedDate}, {formattedTime}
                 </p>

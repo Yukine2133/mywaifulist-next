@@ -1,4 +1,4 @@
-const SubmitButton = ({ loading }: any) => {
+const SubmitButton = ({ loading }: { loading: boolean }) => {
   return (
     <button
       type="submit"
