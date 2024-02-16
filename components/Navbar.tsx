@@ -26,12 +26,18 @@ const Navbar = async () => {
           My<span className="text-pink-500 font-bold">Waifu</span>List
         </Link>
         {user ? (
-          <div className="lg:flex hidden ">
+          <div className="lg:flex hidden gap-3 ">
             <Link
               href="/add-waifu"
               className="font-medium hover:text-gray-200 transition-colors duration-300"
             >
               Add Waifu
+            </Link>
+            <Link
+              href="/rules"
+              className="font-medium hover:text-gray-200 transition-colors duration-300"
+            >
+              Rules
             </Link>
           </div>
         ) : null}

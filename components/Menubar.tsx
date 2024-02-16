@@ -30,13 +30,20 @@ const Menubar = ({ user }: MenuUser) => {
       {isOpen && (
         <div className="absolute bg-gray-950 top-8 right-[-10px] w-[150px] p-2 shadow-lg rounded-sm text-center ">
           {user ? (
-            <div className="">
+            <div className="flex flex-col">
               <Link
                 href="/add-waifu"
                 className="font-medium hover:text-gray-200"
                 onClick={closeMenu}
               >
                 Add Waifu
+              </Link>
+              <Link
+                href="/rules"
+                className="font-medium hover:text-gray-200"
+                onClick={closeMenu}
+              >
+                Rules
               </Link>
             </div>
           ) : null}
