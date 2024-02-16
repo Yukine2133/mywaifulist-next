@@ -10,11 +10,14 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "./ui/textarea";
 
+import SubmitButton from "./SubmitButton";
+
 interface WaifuProps {
   onSubmit: (values: z.infer<typeof CommentValidation>) => void;
   form: any;
+  loading: boolean;
 }
-const CommentForm = ({ form, onSubmit }: WaifuProps) => {
+const CommentForm = ({ form, onSubmit, loading }: WaifuProps) => {
   return (
     <div className="p-4 flex-col justify-center xl:w-full  mx-auto items-center flex mt-8  ">
       <label className="font-medium text-zinc-200 mb-4">Comments</label>
@@ -40,12 +43,13 @@ const CommentForm = ({ form, onSubmit }: WaifuProps) => {
                   />
                 </FormControl>
                 <div className=" flex justify-end">
-                  <button
+                  {/* <button
                     type="submit"
                     className=" bg-[#4b5562] w-28   text-white hover:bg-gray-700 px-3 py-2 rounded-md transition-colors duration-300"
                   >
                     Comment
-                  </button>
+                  </button> */}
+                  <SubmitButton loading={loading} />
                 </div>
                 <FormMessage />
               </FormItem>

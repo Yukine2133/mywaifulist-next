@@ -7,8 +7,10 @@ import * as z from "zod";
 import CommentForm from "./CommentForm";
 import { addCommentToWaifu } from "@/actions/waifu.actions";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const CommentSection = ({ id }: { id: string }) => {
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
@@ -18,18 +20,23 @@ const CommentSection = ({ id }: { id: string }) => {
   const { reset } = form;
 
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
-    const res = await addCommentToWaifu({
-      content: values.content,
-      waifuId: id,
-    });
-    if (res?.message) {
-      toast.error(res.message);
+    try {
+      setLoading(true);
+      const res = await addCommentToWaifu({
+        content: values.content,
+        waifuId: id,
+      });
+      if (res?.message) {
+        toast.error(res.message);
+      }
+      reset();
+    } finally {
+      setLoading(false);
     }
-    reset();
   }
   return (
     <section className="">
-      <CommentForm form={form} onSubmit={onSubmit} />
+      <CommentForm form={form} onSubmit={onSubmit} loading={loading} />
     </section>
   );
 };

@@ -28,12 +28,12 @@ interface WaifuProps {
 
 const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
   return (
-    <div className="bg-black-2 p-4 flex-col justify-center max-w-[1200px] mx-auto items-center flex mt-8 text-[#9ca3af] ">
+    <div className="bg-black-2 p-4 flex-col justify-center max-w-[1200px] mx-auto items-center flex mt-8 text-[#9ca3af]  ">
       <h2 className="text-gray-300">{label}</h2>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-96 space-y-6"
+          className="flex flex-col w-96 space-y-6  "
         >
           <FormField
             control={form.control}
@@ -114,7 +114,9 @@ const WaifuForm = ({ form, onSubmit, label, loading }: WaifuProps) => {
           />
 
           <hr className="opacity-50" />
-          <SubmitButton loading={loading} />
+          <div className="flex justify-center">
+            <SubmitButton loading={loading} />
+          </div>
         </form>
       </Form>
     </div>
